@@ -76,7 +76,8 @@ class BurgerBuilder extends Component {
 
     purchaseCountinueHandler = () => {
         //alert('You countinue purchaising');
-        this.setState({loading:true});
+        console.log(this.props)
+        /* this.setState({loading:true});
         const order = {
             ingredients : this.state.ingredients,
             totalPrice : this.state.totalPrice,
@@ -102,7 +103,16 @@ class BurgerBuilder extends Component {
                     console.log(error);
                     this.setState({loading:false, purchaising : false});
                 }
-                )
+                ) */
+                const queryParams = [];
+                for (let i in this.state.ingredients){
+                    queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
+                }
+                const queryString = queryParams.join('&');
+                this.props.history.push({
+                    pathname : '/checkout',
+                    search : '?' + queryString
+                })
 
     }
 
